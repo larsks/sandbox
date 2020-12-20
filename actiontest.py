@@ -1,6 +1,6 @@
 import os
 
-if os.environ.get('CI'):
+if os.getenv('CI'):
     print('Looks like GitHub!')
 else:
     print('Maybe running locally?')
