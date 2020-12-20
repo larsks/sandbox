@@ -1,0 +1,14 @@
+---
+name: "Environment test"
+on:
+  workflow_dispatch:
+
+jobs:
+  label_open_boards:
+    name: "Action Environment Test"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Show environmetn variables"
+        run: |
+          env
