@@ -1,14 +1,32 @@
 ---
 name: "Environment test"
 on:
+  push:
   workflow_dispatch:
 
 jobs:
-  label_open_boards:
-    name: "Action Environment Test"
+  show_environment:
+    name: "Show environment variables"
     runs-on: ubuntu-latest
 
     steps:
       - name: "Show environmetn variables"
         run: |
           env
+
+  python_test:
+    name: "Reproduce behavior from https://stackoverflow.com/q/65382013/147356"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+
+      - name: "Set up python"
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: "Run python script"
+        run: |
+          python actiontest.py
