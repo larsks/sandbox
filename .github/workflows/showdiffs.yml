@@ -1,0 +1,21 @@
+name: Run git diff
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  run:
+    name: Reproduce behavior from https://stackoverflow.com/q/65944700/147356
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Show diffs
+        run: |
+          pwd
+          ls -A
+          git status
+          git rev-parse HEAD
+          git log
+          git diff --name-only HEAD^..HEAD
