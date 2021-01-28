@@ -5,16 +5,19 @@ on:
 
 jobs:
   run:
-    name: Reproduce behavior from https://stackoverflow.com/q/65944700/147356
+    name: Run git diff
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
 
       - name: Show diffs
         run: |
           pwd
           ls -A
+          git --version
           git status
           git rev-parse HEAD
           git log
