@@ -1,0 +1,30 @@
+name: Example 1
+
+on:
+  push:
+
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract branch/server/ssh/project names into ENV variable
+        shell: bash
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: "true"
+          SERVER_IP_DEV: ${{ secrets.SERVER_IP_DEV }}
+          SERVER_IP_MAIN: ${{ secrets.SERVER_IP_MAIN }}
+          EC2_SSH_KEY_DEV: ${{ secrets.EC2_SSH_KEY_DEV }}
+          EC2_SSH_KEY_MAIN: ${{ secrets.EC2_SSH_KEY_MAIN }}
+          PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+        run: |
+          branch=$(sed 's|/|_|g' <<< ${GITHUB_REF#refs/heads/})
+          server="SERVER_IP_${branch_name^^}"
+          ssh_key="EC2_SSH_KEY_${branch_name^^}"
+          project="PROJECT_NAME"
+          echo "::set-env name=BRANCH_NAME::branch"
+          echo "::set-env name=SERVER_IP::server"
+          echo "::set-env name=SSH_KEY::ssh_key"
+          echo "::set-env name=PROJECT_NAME::project"
+      - name: Show environment variables
+        run: |
+          env
