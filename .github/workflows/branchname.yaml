@@ -1,0 +1,19 @@
+name: Example
+
+on:
+  push:
+
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get target ip
+        env:
+          DEV_SERVER_IP: ${{ secrets.DEV_SERVER_IP }}
+          MAIN_SERVER_IP: ${{ secrets.MAIN_SERVER_IP }}
+        run: |
+          branch_name=$(sed 's|/|_|g' <<< ${GITHUB_REF#refs/heads/})
+          target="${branch_name^^}_SERVER_IP"
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${!target} >> ~/.ssh/known_hosts
+          cat ~/.ssh/known_hosts
