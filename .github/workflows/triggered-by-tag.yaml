@@ -1,0 +1,17 @@
+name: Response to a new tag
+
+on:
+  push:
+    tags:
+      - 'example-tag-*'
+
+jobs:
+  do-something:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - run: |
+          echo "Look we triggered a workflow."

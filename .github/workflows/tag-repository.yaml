@@ -23,5 +23,5 @@ jobs:
 
       - name: test if we can create and push a tag
         run: |
-          git tag -f example-tag
+          git tag -f example-tag-1
           git push --tags
