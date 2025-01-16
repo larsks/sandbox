@@ -23,8 +23,16 @@ jobs:
           branch: main
           noVersionBumpBehavior: silent
 
+      - name: Show semver output
+        run: |
+          cat <<EOF
+          current: ${{ steps.semver.outputs.current }}
+          next: ${{ steps.semver.outputs.next }}
+          bump: ${{ steps.semver.outputs.bump }}
+          EOF
+
       - name: Tag release
-        if: ${{ steps.sember.outputs.bump != "none" }}
+        if: ${{ steps.semver.outputs.bump != '' }}
         run: |
           git tag "${{ steps.semver.outputs.next }}"
           git push --tags
