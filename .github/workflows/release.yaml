@@ -21,8 +21,10 @@ jobs:
         with:
           token: ${{ github.token }}
           branch: main
+          noVersionBumpBehavior: silent
 
       - name: Tag release
+        if: ${{ steps.sember.outputs.bump != "none" }}
         run: |
           git tag "${{ steps.semver.outputs.next }}"
           git push --tags
