@@ -1,0 +1,15 @@
+name: Test variable access
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  pre-commit:
+    environment: testenv
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          cat <<EOF
+          ${{ vars }}
+          EOF
