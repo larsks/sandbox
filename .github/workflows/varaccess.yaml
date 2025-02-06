@@ -5,7 +5,7 @@ on:
   push:
 
 jobs:
-  pre-commit:
+  job1:
     environment: testenv
     runs-on: ubuntu-latest
     steps:
@@ -13,3 +13,12 @@ jobs:
           cat <<EOF
           ${{ vars }}
           EOF
+      - run: |
+          touch testfile
+  job2:
+    runs-on: ubuntu-latest
+    needs:
+    - job1
+    steps:
+    - run: |
+        ls -A
